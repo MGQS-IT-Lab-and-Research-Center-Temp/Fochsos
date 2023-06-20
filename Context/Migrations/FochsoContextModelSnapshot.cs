@@ -96,6 +96,7 @@ namespace Fochso.Migrations
                         .HasColumnType("varchar(200)");
 
                     b.Property<int>("ClassId")
+                        .HasMaxLength(200)
                         .HasColumnType("int");
 
                     b.Property<string>("CreatedBy")
@@ -118,9 +119,6 @@ namespace Fochso.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ClassId");
-
-                    b.HasIndex("Name", "Id")
-                        .IsUnique();
 
                     b.ToTable("Student", (string)null);
                 });

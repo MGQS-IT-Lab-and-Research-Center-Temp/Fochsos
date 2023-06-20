@@ -80,7 +80,7 @@ namespace Fochso.Migrations
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
                     Class = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true),
-                    ClassId = table.Column<int>(type: "int", nullable: false),
+                    ClassId = table.Column<int>(type: "int", maxLength: 200, nullable: false),
                     CreatedBy = table.Column<string>(type: "longtext", nullable: true),
                     DateCreated = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     LastModified = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -136,12 +136,6 @@ namespace Fochso.Migrations
                 name: "IX_Student_ClassId",
                 table: "Student",
                 column: "ClassId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Student_Name_Id",
-                table: "Student",
-                columns: new[] { "Name", "Id" },
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_RoleId",

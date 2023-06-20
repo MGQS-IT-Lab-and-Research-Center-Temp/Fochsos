@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Fochso.Migrations
 {
     [DbContext(typeof(FochsoContext))]
-    [Migration("20230619225046_Initial")]
+    [Migration("20230620083737_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -99,6 +99,7 @@ namespace Fochso.Migrations
                         .HasColumnType("varchar(200)");
 
                     b.Property<int>("ClassId")
+                        .HasMaxLength(200)
                         .HasColumnType("int");
 
                     b.Property<string>("CreatedBy")
@@ -121,9 +122,6 @@ namespace Fochso.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ClassId");
-
-                    b.HasIndex("Name", "Id")
-                        .IsUnique();
 
                     b.ToTable("Student", (string)null);
                 });

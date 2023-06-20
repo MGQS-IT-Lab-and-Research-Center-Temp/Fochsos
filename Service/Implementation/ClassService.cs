@@ -67,7 +67,6 @@ namespace Fochso.Service.Implementation
 			if (isClassExist)
 			{
 				response.Message = "class already exist!";
-				return response;
 			}
 			var classes = _unitOfWork.Classes.Get(classId);
 
@@ -82,7 +81,8 @@ namespace Fochso.Service.Implementation
 			}
 			catch (Exception ex)
 			{
-				return response;
+                response.Message = $"Class delete failed: {ex.Message}";
+                return response;
 			}
 		}
 

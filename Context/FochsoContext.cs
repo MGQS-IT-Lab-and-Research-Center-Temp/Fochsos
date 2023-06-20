@@ -33,7 +33,7 @@ namespace Fochso.Context
             foreach (var entry in ChangeTracker.Entries().Where(e => e.State == EntityState.Deleted))
             {
                 entry.State = EntityState.Modified;
-                entry.CurrentValues["IsDeleted"] = true;
+                //entry.CurrentValues["IsDeleted"] = true;
             }
 
             return base.SaveChanges();

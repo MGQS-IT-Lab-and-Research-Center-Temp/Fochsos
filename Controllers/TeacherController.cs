@@ -1,4 +1,5 @@
 ﻿using Fochso.Models.Teacher;
+using Fochso.Service.Implementation;
 using Fochso.Service.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -33,7 +34,7 @@ namespace Fochso.Controllers
             ViewData["status"] = response.Status;
             if (response.Status is false)
             {
-                return RedirectToAction("Teacher", "Index");
+                return RedirectToAction("Index", "Teacher");
             }
             return View(response.Data);
         }
@@ -55,7 +56,7 @@ namespace Fochso.Controllers
                 return View(createTeacher);
             }
 
-            return RedirectToAction("Teacher", "Index");
+            return RedirectToAction("Index", "Teacher");
         }
 
         // GET: StudentController/Edit/5
@@ -64,7 +65,7 @@ namespace Fochso.Controllers
             var response = _teacherService.GetTeacher(id);
             if (response.Status is false)
             {
-                return RedirectToAction("Teacher", "Index");
+                return RedirectToAction("Index", "Teacher");
             }
             return View(response);
         }
@@ -81,22 +82,27 @@ namespace Fochso.Controllers
                 return View(response);
             }
 
-            return RedirectToAction("Teacher", "Index");
+            return RedirectToAction("Index", "Teacher");
         }
 
         // GET: StudentController/Delete/5
 
         // POST: StudentController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpDelete]
         public ActionResult Delete([FromRoute] int id)
         {
+            var record = _teacherService.GetTeacher(id);
             var response = _teacherService.DeleteTeacher(id);
+            if (record != null)
+            {
+                _teacherService.DeleteTeacher(id);
+                return Ok(); // Return an HTTP 200 OK response if the deletion is successful
+            }
             if (response.Status is false)
             {
                 return View(response);
             }
-            return RedirectToAction("Teacher", "Index");
+            return RedirectToAction("Index", "Teacher");
         }
     }
 }

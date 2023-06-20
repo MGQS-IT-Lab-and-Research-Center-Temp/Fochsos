@@ -16,16 +16,15 @@ namespace Fopchso.Context.EntityConfiguration
                 .IsRequired()
                 .HasMaxLength(50);
 
-            builder.HasIndex(c => new { c.Name, c.Id })
-             .IsUnique();
-
             builder.Property(c => c.Class)
                 .HasMaxLength(200);
 
+            builder.Property(c => c.ClassId)
+              .HasMaxLength(200);
+
             builder.HasOne(qr => qr.ClassClass)
                    .WithMany(qr => qr.Students)
-                   .HasForeignKey(qr => qr.ClassId)
-                   .IsRequired();
+                   .HasForeignKey(qr => qr.ClassId);
         }
     }
 }

@@ -5,6 +5,7 @@ using Fochso.Repository.Implementations;
 using Fochso.Repository.Interfaces;
 using Fochso.Entities;
 using System.Linq.Expressions;
+using AspNetCore;
 
 namespace Fochso.Service.Implementation
 {
@@ -26,6 +27,7 @@ namespace Fochso.Service.Implementation
             var response = new BaseResponseModel();
             var createdBy = _httpContextAccessor.HttpContext.User.Identity.Name;
             var isStudentExist = _unitOfWork.Students.Exists(s => s.Name == createStudent.Name);
+            var classes = _unitOfWork.Classes.Get(createStudent.ClassId);
             if (isStudentExist)
             {
                 response.Message = "Student already exist!";
@@ -36,12 +38,14 @@ namespace Fochso.Service.Implementation
                 response.Message = "Student field is required";
                 return response;
             }
+          
 
             var student = new Student
             {
                 Name = createStudent.Name,
                 Class = createStudent.Class,
-                //ClassClass = createStudent.Class
+                ClassId = createStudent.ClassId,
+                ClassClass = classes,
                 CreatedBy = createdBy
             };
 
@@ -64,6 +68,9 @@ namespace Fochso.Service.Implementation
         public BaseResponseModel DeleteStudent(int studentId)
         {
             var response = new BaseResponseModel();
+
+            Expression<Func<Student, bool>> expression = (q => q.Id == studentId);
+
             var isStudentExist = _unitOfWork.Students.Exists(s => s.Id == studentId);
 
             if (!isStudentExist)
@@ -84,6 +91,7 @@ namespace Fochso.Service.Implementation
             }
             catch (Exception ex)
             {
+                response.Message = $"Student delete failed: {ex.Message}";
                 return response;
             }
         }

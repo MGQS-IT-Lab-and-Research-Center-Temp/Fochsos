@@ -31,7 +31,6 @@ namespace Fochso.Repository.Implementations
 						.Include(s => s.Name)
 						.Include(s => s.Id)
 						.Include(s => s.Students)
-						.Where(c => c.Id.Equals(c.Id))
 						.ToList();
 
 			return classes;

@@ -37,7 +37,7 @@ builder.Services.AddNotyf(config =>
 });
 
 builder.Services.AddDbContext<FochsoContext>(option =>
-	option.UseMySQL(builder.Configuration.GetConnectionString("FochsoContext")!));
+	option.UseMySQL(builder.Configuration.GetConnectionString("FochsoContext")));
 builder.Services.AddScoped<DbInitializer>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

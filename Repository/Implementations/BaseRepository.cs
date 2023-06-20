@@ -22,7 +22,7 @@ namespace Fochso.Repository.Implementations
 
         public T Get(int id)
         {
-            return _context.Set<T>().Find(id)!;
+            return _context.Set<T>().Find(id);
         }
 
         public T Get(Expression<Func<T, bool>> expression)

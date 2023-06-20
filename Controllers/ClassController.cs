@@ -1,4 +1,5 @@
 ﻿using Fochso.Models.Class;
+using Fochso.Service.Implementation;
 using Fochso.Service.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -27,14 +28,14 @@ namespace Fochso.Controllers
         }
 
         // GET: StudentController/Details/5
-        public ActionResult Details(int id)
+        public ActionResult GetClass(int id)
         {
             var response = _classService.GetClass(id);
             ViewData["Message"] = response.Message;
             ViewData["status"] = response.Status;
             if (response.Status is false)
             {
-                return RedirectToAction("Class", "Index");
+                return RedirectToAction("Index", "Class");
             }
             return View(response.Data);
         }
@@ -55,7 +56,7 @@ namespace Fochso.Controllers
                 return View(createClass);
             }
 
-            return RedirectToAction("Class", "Index");
+            return RedirectToAction("Index","Class");
         }
 
         // GET: StudentController/Edit/5
@@ -64,9 +65,9 @@ namespace Fochso.Controllers
             var response = _classService.GetClass(id);
             if (response.Status is false)
             {
-                return RedirectToAction("Class", "Index");
+                return RedirectToAction("Index", "Class");
             }
-            return View(response);
+            return View(response.Data);
         }
 
         // POST: StudentController/Edit/5
@@ -77,24 +78,34 @@ namespace Fochso.Controllers
 
             if (response.Status is false)
             {
-                return View(response);
+                return View();
             }
 
-            return RedirectToAction("Class", "Index");
+            return RedirectToAction("Index", "Class");
         }
 
         // GET: StudentController/Delete/5
+        public ActionResult Delete()
+        {
+            return View();
+        }
 
         // POST: StudentController/Delete/5
         [HttpPost]
         public ActionResult Delete([FromRoute] int id)
         {
+            var record = _classService.GetClass(id);
             var response = _classService.DeleteClass(id);
-            if (response.Status is false)
-            {
-                return View(response);
-            }
-            return RedirectToAction("Class", "Index");
+            //if (record != null)
+            //{
+            //    _classService.DeleteClass(id);
+            //    return RedirectToAction("Index", "Class");
+            //}
+            //if (response.Status is false)
+            //{
+            //    return View();
+            //}
+            return RedirectToAction("Index", "Class");
         }
     }
 }

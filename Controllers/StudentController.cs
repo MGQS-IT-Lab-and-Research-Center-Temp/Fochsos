@@ -5,6 +5,7 @@ using Fochso.Service.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography.X509Certificates;
 
 namespace Fochso.Controllers
@@ -37,7 +38,7 @@ namespace Fochso.Controllers
             ViewData["status"] = response.Status;
             if (response.Status is false)
             {
-                return RedirectToAction("Student", "Index");
+                return RedirectToAction("Index", "Student");
             }
             return View(response.Data);
         }
@@ -59,7 +60,7 @@ namespace Fochso.Controllers
                 return View(createStudent);
             }
 
-                return RedirectToAction("Student","Index");
+                return RedirectToAction("Index","Student");
         }
 
         // GET: StudentController/Edit/5
@@ -68,7 +69,7 @@ namespace Fochso.Controllers
             var response = _studentService.GetStudent(id);
             if(response.Status is false) 
             {
-                return RedirectToAction("Student", "Index");
+                return RedirectToAction("Index", "Student");
             }
             return View(response);
         }
@@ -85,7 +86,7 @@ namespace Fochso.Controllers
                 return View(response);
             }
 
-                return RedirectToAction("Student","Index");
+                return RedirectToAction("Index","Student");
             
            
         }
@@ -93,16 +94,21 @@ namespace Fochso.Controllers
         // GET: StudentController/Delete/5
       
         // POST: StudentController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpDelete]
         public ActionResult Delete([FromRoute]int id)
         {
+            var record = _studentService.GetStudent(id);
             var response = _studentService.DeleteStudent(id);
-            if(response.Status is false)
+            if (record != null)
+            {
+                _studentService.DeleteStudent(id);
+                return Ok(); // Return an HTTP 200 OK response if the deletion is successful
+            }
+            if (response.Status is false)
             {
                 return View(response);
             }
-                return RedirectToAction("Student", "Index");
+                return RedirectToAction("Index", "Student");
         }
     }
 }

@@ -15,9 +15,7 @@ namespace Fochso.Repository.Implementations
 		public Student GetStudent(Expression<Func<Student, bool>> expression)
 		{
 			var students = _context.Students
-			.Include(c => c.Name)
-			.Include(c => c.Class)
-			 .Include(u => u.Id)
+			.Include(c => c.ClassClass)
 			 .SingleOrDefault(expression);
 
 			return students;
@@ -28,8 +26,10 @@ namespace Fochso.Repository.Implementations
 			var students = _context.Students
 			.Include(s => s.Name)
 			.Include(s => s.Id)
-			.Include(s => s.Class)
-			.Where(c => c.Id.Equals(c.Id))
+			.Include(s => s.ClassClass)
+			.ThenInclude(s => s.Id)
+            .Include(s => s.ClassClass)
+            .ThenInclude(s => s.Name)
 			.ToList();
 
 			return students;
@@ -42,7 +42,11 @@ namespace Fochso.Repository.Implementations
 			  .Include(s => s.Name)
 			  .Include(s => s.Class)
 			  .Include(s => s.Id)
-			  .ToList();
+			  .Include(s => s.ClassClass)
+			  .ThenInclude(s => s.Id)
+              .Include(s => s.ClassClass)
+              .ThenInclude(s => s.Name)
+              .ToList();
 
 			return students;
 		}
