@@ -1,4 +1,5 @@
-﻿using Fochso.Models.Class;
+﻿using Fochso.Entities;
+using Fochso.Models.Class;
 using Fochso.Service.Implementation;
 using Fochso.Service.Interface;
 using Microsoft.AspNetCore.Authorization;
@@ -85,14 +86,15 @@ namespace Fochso.Controllers
         }
 
         // GET: StudentController/Delete/5
-        public ActionResult Delete()
+        public ActionResult Delete([FromRoute] int id)
         {
-            return View();
+            var cla = _classService.DeleteClass(id);
+            return View(cla);
         }
 
         // POST: StudentController/Delete/5
-        [HttpPost]
-        public ActionResult Delete([FromRoute] int id)
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed([FromRoute] int id)
         {
             var record = _classService.GetClass(id);
             var response = _classService.DeleteClass(id);
