@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Fochso.Migrations
 {
     [DbContext(typeof(FochsoContext))]
-    [Migration("20230620083737_Initial")]
+    [Migration("20230819173002_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -51,6 +51,35 @@ namespace Fochso.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Class", (string)null);
+                });
+
+            modelBuilder.Entity("Fochso.Entities.News", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("LastModified")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Newses");
                 });
 
             modelBuilder.Entity("Fochso.Entities.Role", b =>

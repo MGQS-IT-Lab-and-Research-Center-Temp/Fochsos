@@ -1,0 +1,36 @@
+﻿@model Fochso.Models.User.UpdateUserViewModel
+@{
+	ViewData["Title"] = "Edit User";
+}
+
+<div class="body">
+
+	<div class="row">
+		<div class="col-md-6">
+			<form asp-action="Update">
+
+				<div class="col-md-12 mb-3">
+					<label class="control-label mb-1">User Name:</label>
+					<textarea asp-for="UserName" type="text" class="form-control"></textarea>
+					<span asp-validation-for="UserName" class="text-danger"></span>
+				</div>
+				<div class="col-md-12 mb-3">
+					<label class="control-label mb-1">Email:</label>
+					<textarea asp-for="Email" type="text" class="form-control"></textarea>
+					<span asp-validation-for="Email" class="text-danger"></span>
+				</div>
+				<div class="col-md-12 mb-3">
+					<label class="control-label mb-1">Password:</label>
+					<textarea asp-for="Password" type="text" class="form-control"></textarea>
+					<span asp-validation-for="Password" class="text-danger"></span>
+				</div>
+
+				<div class="col-md-12">
+					<button type="submit" class="btn btn-primary">Update</button>
+				</div>
+
+			</form>
+		</div>
+	</div>
+</div>
+

@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Fochso.Models.Class.DateCreatedGroup>
+
+@{
+    ViewData["Title"] = "Class Body Statistics";
+}
+
+<h2>Class Body Statistics</h2>
+
+<table>
+    <tr>
+        <th>
+            Enrollment Date
+        </th>
+        <th>
+            Students
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateCreated)
+            </td>
+            <td>
+                @item.ClassCount
+            </td>
+        </tr>
+    }
+</table>

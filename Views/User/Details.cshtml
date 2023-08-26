@@ -1,0 +1,68 @@
+﻿@model Fochso.Models.User.UserViewModel
+
+@{
+    ViewData["Title"] = "User Detail";
+}
+
+<div class="body">
+
+    @if (Model is not null)
+    {
+        <div class="card">
+
+            <div class="card-header">
+                <dl class="row">
+                    <dt class="col-sm-4">
+                        User Id:
+                    </dt>
+
+                    <dd class="col-sm-8">
+                        @Model.Id
+                    </dd>
+
+                    <dt class="col-sm-4">
+                        User Name:
+                    </dt>
+
+                    <dd class="col-sm-8">
+                        @Model.UserName
+                    </dd>
+
+                    <dt class="col-sm-4">
+                        Email:
+                    </dt>
+
+                    <dd class="col-sm-8">
+                        @Model.Email
+                    </dd>
+
+                    <dt class="col-sm-4">
+                        RoleName:
+                    </dt>
+
+                    <dd class="col-sm-8">
+                        @Model.RoleName
+                    </dd>
+                </dl>
+
+                @if (User.IsInRole("Admin"))
+                {
+                    @*<a asp-controller="User" asp-action="Update" asp-route-id="@Model.Id" class="btn btn-primary">Update</a>*@
+
+                   @* <form asp-controller="User" asp-action="Delete" asp-route-id="@Model.Id" method="post" style="display:inline-block">
+                        <button type="submit" class="btn btn-danger btn-sm">
+                            delete
+                        </button>
+                    </form>*@
+                    @*<a asp-controller="Teacher" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>*@
+                    @*  <form action="update">
+            <button type="submit" asp-action="Delete" asp-controller="Teacher" class="btn btn-danger">Delete</button>
+            </form>*@
+
+                }
+                <a asp-controller="User" asp-action="Index" class="btn btn-secondary">Back to list</a>
+
+            </div>
+        </div>
+    }
+</div>

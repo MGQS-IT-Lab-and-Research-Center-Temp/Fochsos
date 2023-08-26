@@ -2,6 +2,7 @@ using AspNetCoreHero.ToastNotification;
 using AspNetCoreHero.ToastNotification.Extensions;
 using Fochso.Context;
 using Fochso.Repository.Implementations;
+using Fochso.Repository.Interface;
 using Fochso.Repository.Interfaces;
 using Fochso.Service.Implementation;
 using Fochso.Service.Implementations;
@@ -24,7 +25,9 @@ builder.Services.AddScoped<IClassService, ClassService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
-builder.Services.AddScoped<IRoleService, RoleService>();
+builder.Services.AddScoped<IRoleService, RoleService>(); 
+builder.Services.AddScoped<INewsRepository, NewsRepository>();
+builder.Services.AddScoped<INewsService, NewsService>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
@@ -44,7 +47,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
                .AddCookie(config =>
                {
                    config.LoginPath = "/home/login";
-                   config.Cookie.Name = "IdealDiscussion";
+                   config.Cookie.Name = "Fochso";
                    config.ExpireTimeSpan = TimeSpan.FromDays(1);
                    config.AccessDeniedPath = "/home/privacy";
                });

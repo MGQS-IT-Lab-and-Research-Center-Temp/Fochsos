@@ -1,9 +1,13 @@
-﻿using Fochso.Entities;
+﻿using Fochso.Context;
+using Fochso.Entities;
 using Fochso.Models.Class;
+using Fochso.Repository.Interfaces;
 using Fochso.Service.Implementation;
 using Fochso.Service.Interface;
+using Foxhso;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Fochso.Controllers
 {
@@ -12,21 +16,63 @@ namespace Fochso.Controllers
     {
 
         private readonly IClassService _classService;
+        private readonly IClassRepository _classRepository;
 
-        public ClassController(IClassService classService)
+        public ClassController(IClassService classService, IClassRepository classRepository)
         {
             _classService = classService;
+            _classRepository = classRepository;
         }
 
         // GET: StudentController
         [AllowAnonymous]
-        public ActionResult Index()
+        public async Task<IActionResult> Index(string sortOrder, string searchString, string currentFilter, int? pageNumber)
         {
             var response = _classService.GetAllClass();
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            ViewData["CurrentFilter"] = searchString;
+
+            var classes = from s in _classRepository.GetClasses()
+                           select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                classes = classes.Where(s => s.Name.Contains(searchString)
+                                       || s.Description.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    classes = classes.OrderByDescending(s => s.Name);
+                    break;
+                case "Description":
+                    classes = classes.OrderBy(s => s.Description);
+                    break;
+                case "date_desc":
+                    classes = classes.OrderByDescending(s => s.DateCreated);
+                    break;
+                case "date":
+                    classes = classes.OrderBy(s => s.DateCreated);
+                    break;
+                default:
+                    classes = classes.OrderBy(s => s.Name);
+                    break;
+            }
             ViewData["Message"] = response.Message;
             ViewData["status"] = response.Status;
-            return View(response.Data);
-        }
+            int pageSize = 10;
+
+            return View(await PaginatedList<Class>.CreateAsync(classes.AsQueryable(), pageNumber ?? 1, pageSize));
+        } 
 
         // GET: StudentController/Details/5
         public ActionResult GetClass(int id)
@@ -86,23 +132,15 @@ namespace Fochso.Controllers
         }
 
         // GET: StudentController/Delete/5
-        public ActionResult Delete([FromRoute] int id)
-        {
-            var cla = _classService.DeleteClass(id);
-            return View(cla);
-        }
+      
 
         // POST: StudentController/Delete/5
         [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed([FromRoute] int id)
+        public ActionResult Delete([FromRoute] int id)
         {
             var record = _classService.GetClass(id);
             var response = _classService.DeleteClass(id);
-            //if (record != null)
-            //{
-            //    _classService.DeleteClass(id);
-            //    return RedirectToAction("Index", "Class");
-            //}
+           
             //if (response.Status is false)
             //{
             //    return View();

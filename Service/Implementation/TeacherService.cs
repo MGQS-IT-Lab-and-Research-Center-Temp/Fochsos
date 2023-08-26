@@ -158,7 +158,7 @@ namespace Fochso.Service.Implementation
 			var response = new BaseResponseModel();
 			var createdBy = _httpContextAccessor.HttpContext.User.Identity.Name;
 			var isTeacherExist = _unitOfWork.Teachers.Exists(s => s.Id == teacherId);
-			if (isTeacherExist)
+			if (!isTeacherExist)
 			{
 				response.Message = "Teacher already exist!";
 				return response;

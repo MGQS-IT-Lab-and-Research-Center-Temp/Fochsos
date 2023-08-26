@@ -22,6 +22,7 @@ namespace Fochso.Controllers
         }
 
         // GET: StudentController
+        [AllowAnonymous]
         public ActionResult Index()
         {
             var response = _studentService.GetAllStudent();
@@ -76,7 +77,6 @@ namespace Fochso.Controllers
 
         // POST: StudentController/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Update(int id, UpdateStudentViewModel updateStudent)
         {
             var response = _studentService.UpdateStudent(id, updateStudent);

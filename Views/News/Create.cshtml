@@ -1,7 +1,6 @@
-﻿@model Fochso.Models.Class.CreateClassViewModel
+﻿@model Fochso.Models.News.CreateNewsViewModel
 @{
-    ViewData["Title"] = "Add Class";
-    var questionId = ViewContext.RouteData.Values["id"];
+    ViewData["Title"] = "Add News";
 }
 
 <div class="body">
@@ -15,18 +14,18 @@
                 @*<input type="hidden" class="form-control" asp-for="Id" value="@c" />*@
 
                 <div class="col-md-12 mb-2">
-                    <label for="Name" class="form-label">Name:</label>
-                    <textarea class="form-control" placeholder="Enter Name" asp-for="Name"></textarea>
-                    <span asp-validation-for="Name" class="text-danger"></span>
+                    <label for="Title" class="form-label">Title:</label>
+                    <textarea class="form-control" placeholder="Enter Title" asp-for="Title"></textarea>
+                    <span asp-validation-for="Title" class="text-danger"></span>
                 </div>
                 <div class="col-md-12 mb-2">
-                    <label for="Description" class="form-label">Description:</label>
+                    <label for="Description" class="form-label">Content:</label>
                     <textarea class="form-control" placeholder="Enter Description" asp-for="Description"></textarea>
                     <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
 
                 <div class="col-md-12">
-                    <button type="submit" class="btn btn-primary">Add Class</button>
+                    <button type="submit" class="btn btn-primary">Add News</button>
                 </div>
             </form>
         </div>

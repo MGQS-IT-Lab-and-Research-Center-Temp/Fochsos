@@ -32,7 +32,7 @@ namespace Fochso.Context
 
             foreach (var entry in ChangeTracker.Entries().Where(e => e.State == EntityState.Deleted))
             {
-                entry.State = EntityState.Modified;
+                entry.State = EntityState.Deleted;
                 //entry.CurrentValues["IsDeleted"] = true;
             }
 
@@ -44,6 +44,7 @@ namespace Fochso.Context
         public DbSet<Role> Roles { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Class> Classes { get; set; }
+        public DbSet<News> Newses { get; set; }
      
     }
 }

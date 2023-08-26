@@ -1,0 +1,70 @@
+﻿@model List<Fochso.Models.News.NewsViewModel>
+
+@{
+    ViewData["Title"] = "News List";
+    int count = 1;
+}
+
+@await Html.PartialAsync("_ListAlert", Model)
+
+<div>
+    <a asp-controller="News" asp-action="Create">Add New News</a>
+</div>
+
+@if (Model is not null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">S/N</th>
+                <th scope="col">News Title</th>
+                <th scope="col">News Description</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@count</th>
+                    <td scope="row">@item.Title</td>
+                    <td scope="row">@item.Description</td>
+                    <td scope="row">
+                        <div class="btn-group">
+                            <a asp-controller="News" asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">View</a>
+                        </div>
+                    </td>
+                </tr>
+                count++;
+            }
+        </tbody>
+    </table>
+}
+
+
+
+    <!-- Slider -->
+    @*<div id="main-slider" class="flexslider">
+        <ul class="slides">
+            <li>
+                <img src="img/1.jpg" alt="" />
+                <div class="flex-caption container">
+                    <h3>Smart Learning..</h3>
+                    <p>Doloribus omnis minus temporibus perferendis ipsa<br /> architecto non, magni quam</p>
+                    <a href="#" class="btn btn-theme">Read More</a>
+                </div>
+            </li>
+            <li>
+                <img src="img/2.jpg" alt="" />
+                <div class="flex-caption container">
+                    <h3>Best Educational Campus..</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing<br /> elitincidunt eius magni provident.</p>
+                    <a href="#" class="btn btn-theme">Read More</a>
+                </div>
+            </li>
+        </ul>
+    </div>*@
+    <!-- end slider -->
+
+</section>

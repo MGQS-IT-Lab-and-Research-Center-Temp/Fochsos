@@ -72,7 +72,6 @@ namespace Fochso.Controllers
 
         // POST: StudentController/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Update(int id, UpdateTeacherViewModel updateTeacher)
         {
             var response = _teacherService.UpdateTeacher(id, updateTeacher);
@@ -93,15 +92,14 @@ namespace Fochso.Controllers
         {
             var record = _teacherService.GetTeacher(id);
             var response = _teacherService.DeleteTeacher(id);
-            if (record != null)
+            if (response is null)
             {
-                _teacherService.DeleteTeacher(id);
-                return Ok(); // Return an HTTP 200 OK response if the deletion is successful
+                return View();
             }
-            if (response.Status is false)
-            {
-                return View(response);
-            }
+            //if (response.Status is false)
+            //{
+            //    return View();
+            //}
             return RedirectToAction("Index", "Teacher");
         }
     }

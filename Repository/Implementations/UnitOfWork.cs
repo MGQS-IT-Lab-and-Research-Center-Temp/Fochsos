@@ -1,4 +1,5 @@
 ﻿using Fochso.Context;
+using Fochso.Repository.Interface;
 using Fochso.Repository.Interfaces;
 
 namespace Fochso.Repository.Implementations
@@ -12,7 +13,9 @@ namespace Fochso.Repository.Implementations
         public IStudentRepository Students { get; }
         public ITeacherRepository Teachers { get; }
         public IClassRepository Classes { get; }
-       
+        public INewsRepository Newses { get; }
+
+        
 
         public UnitOfWork(
             FochsoContext context,
@@ -20,7 +23,8 @@ namespace Fochso.Repository.Implementations
             IUserRepository userRepository,
             IStudentRepository studentRepository,
             ITeacherRepository teacherRepository,
-            IClassRepository classRepository)
+            IClassRepository classRepository,
+            INewsRepository newsRepository)
          
         {
             _context = context;
@@ -29,6 +33,7 @@ namespace Fochso.Repository.Implementations
             Students = studentRepository;
             Teachers = teacherRepository;
             Classes = classRepository;
+            Newses = newsRepository;
         }
 
         public int SaveChanges()

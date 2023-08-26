@@ -9,6 +9,9 @@ using System.Security.Claims;
 using Fochso.Service.Interface;
 using AspNetCoreHero.ToastNotification.Abstractions;
 using Fochso.ActionFilters;
+using Microsoft.EntityFrameworkCore;
+using Fochso.Models.Class;
+using Fochso.Context;
 
 namespace Fochso.Controllers
 {
@@ -17,14 +20,15 @@ namespace Fochso.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IUserService _userService;
         private readonly INotyfService _notyf;
+        private readonly FochsoContext _context;
 
 
-
-        public HomeController(ILogger<HomeController> logger,IUserService userService,INotyfService notyfService)
+        public HomeController(ILogger<HomeController> logger,IUserService userService,INotyfService notyfService, FochsoContext context)
         {
             _logger = logger;
             _userService = userService;
             _notyf = notyfService;
+            _context = context;
         }
 
         public IActionResult Index()
@@ -131,6 +135,17 @@ namespace Fochso.Controllers
         {
             return View();
         }
-
+        public async Task<ActionResult> About()
+        {
+            IQueryable<DateCreatedGroup> data =
+                from className in _context.Classes
+                group className by className.DateCreated into dateGroup
+                select new DateCreatedGroup()
+                {
+                    DateCreated = dateGroup.Key,
+                    ClassCount = dateGroup.Count()
+                };
+            return View(await data.AsNoTracking().ToListAsync());
+        }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Fochso.Repository.Interfaces;
+﻿using Fochso.Repository.Interface;
+
+namespace Fochso.Repository.Interfaces;
 
 public interface IUnitOfWork : IDisposable
 {
@@ -7,5 +9,6 @@ public interface IUnitOfWork : IDisposable
     IStudentRepository Students { get; }
     ITeacherRepository Teachers { get; }
     IClassRepository Classes { get; }
+    INewsRepository Newses { get; }
     int SaveChanges();
 }
