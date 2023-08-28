@@ -1,0 +1,27 @@
+﻿namespace Fochso.Models.Result
+{
+    public class ResultViewModel
+    {
+          public int English { get; set; }
+        public int Mathematics { get; set; }
+        public int Civic { get; set; }
+        public int Physics { get; set; }
+        public int Chemistry { get; set; }
+        public int Biology { get; set; }
+        public int FurtherMathematics { get; set; }
+        public int Agric { get; set; }
+        public int IRS { get; set; }
+        public int ICT { get; set; }
+        public int DataProcessing { get; set; }
+        public int Geography { get; set; }
+        public int Literature { get; set; }
+        public int Government { get; set; }
+        public int TD { get; set; }
+        public int Commerce { get; set; }
+        public int Accounting { get; set; }
+        public int Yoruba { get; set; }
+        public string StudentName { get; set; }
+        public Fochso.Entities.Student Student { get; set; }
+
+    }
+}

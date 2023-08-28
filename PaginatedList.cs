@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-namespace Foxhso
+namespace Fochso
 {
     public class PaginatedList<T> : List<T>
     {
@@ -23,10 +23,10 @@ namespace Foxhso
 
         public bool HasNextPage => PageIndex < TotalPages;
 
-        public static async Task<PaginatedList<T>> CreateAsync(IQueryable<T> source, int pageIndex, int pageSize)
+        public static PaginatedList<T> Create(IEnumerable<T> source, int pageIndex, int pageSize)
         {
-            var count = await source.CountAsync();
-            var items = await source.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToListAsync();
+            var count =  source.Count();
+            var items =  source.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
             return new PaginatedList<T>(items, count, pageIndex, pageSize);
         }
     }

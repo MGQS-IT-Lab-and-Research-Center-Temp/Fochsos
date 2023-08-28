@@ -4,10 +4,11 @@ using Fochso.Models.Class;
 using Fochso.Repository.Interfaces;
 using Fochso.Service.Implementation;
 using Fochso.Service.Interface;
-using Foxhso;
+using Fochso;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Fochso.Controllers
 {
@@ -26,7 +27,7 @@ namespace Fochso.Controllers
 
         // GET: StudentController
         [AllowAnonymous]
-        public async Task<IActionResult> Index(string sortOrder, string searchString, string currentFilter, int? pageNumber)
+        public IActionResult Index(string sortOrder, string searchString, string currentFilter, int? pageNumber)
         {
             var response = _classService.GetAllClass();
             ViewData["CurrentSort"] = sortOrder;
@@ -42,7 +43,7 @@ namespace Fochso.Controllers
             }
             ViewData["CurrentFilter"] = searchString;
 
-            var classes = from s in _classRepository.GetClasses()
+           var classes = from s in _classRepository.GetClasses()
                            select s;
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -71,7 +72,7 @@ namespace Fochso.Controllers
             ViewData["status"] = response.Status;
             int pageSize = 10;
 
-            return View(await PaginatedList<Class>.CreateAsync(classes.AsQueryable(), pageNumber ?? 1, pageSize));
+            return View(PaginatedList<ClassViewModel>.Create(response.Data, pageNumber ?? 1, pageSize)); ;
         } 
 
         // GET: StudentController/Details/5

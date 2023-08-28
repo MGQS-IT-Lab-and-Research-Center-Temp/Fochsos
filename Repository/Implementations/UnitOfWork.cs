@@ -14,6 +14,7 @@ namespace Fochso.Repository.Implementations
         public ITeacherRepository Teachers { get; }
         public IClassRepository Classes { get; }
         public INewsRepository Newses { get; }
+        public IResultRepository Results { get; }    
 
         
 
@@ -24,7 +25,8 @@ namespace Fochso.Repository.Implementations
             IStudentRepository studentRepository,
             ITeacherRepository teacherRepository,
             IClassRepository classRepository,
-            INewsRepository newsRepository)
+            INewsRepository newsRepository,
+            IResultRepository resultRepository)
          
         {
             _context = context;
@@ -34,6 +36,7 @@ namespace Fochso.Repository.Implementations
             Teachers = teacherRepository;
             Classes = classRepository;
             Newses = newsRepository;
+            Results = resultRepository;
         }
 
         public int SaveChanges()

@@ -10,5 +10,6 @@ public interface IUnitOfWork : IDisposable
     ITeacherRepository Teachers { get; }
     IClassRepository Classes { get; }
     INewsRepository Newses { get; }
+    IResultRepository Results { get; }
     int SaveChanges();
 }

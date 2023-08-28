@@ -45,6 +45,7 @@ namespace Fochso.Context
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Class> Classes { get; set; }
         public DbSet<News> Newses { get; set; }
+        public DbSet<Result> Results { get; set; }
      
     }
 }

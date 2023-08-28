@@ -32,6 +32,22 @@ namespace Fochso.Context
                     CreatedBy = "System",
                     DateCreated = DateTime.Now,
                     LastModified = new DateTime()
+                },
+                new Role()
+                {
+                    RoleName = "Student",
+                    Description = "Role for Students",
+                    CreatedBy = "System",
+                    DateCreated = DateTime.Now,
+                    LastModified = new DateTime()
+                },
+                new Role()
+                {
+                    RoleName = "Teacher",
+                    Description = "Role for Teachers",
+                    CreatedBy = "System",
+                    DateCreated = DateTime.Now,
+                    LastModified = new DateTime()
                 }
             };
 

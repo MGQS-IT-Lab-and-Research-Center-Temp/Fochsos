@@ -25,6 +25,8 @@ namespace Fochso.Service.Implementations
 			var response = new BaseResponseModel();
 			var createdBy = _httpContextAccessor.HttpContext.User.Identity.Name;
 			var userExist = _unitOfWork.Users.Exists(x => x.UserName == request.UserName || x.Email == request.Email);
+			var isStudent = _unitOfWork.Students.Exists(s => s.Name == request.UserName);
+			var isTeacher = _unitOfWork.Teachers.Exists(s => s.Name == request.UserName);
 
 			if (userExist)
 			{
@@ -33,24 +35,34 @@ namespace Fochso.Service.Implementations
 			}
 
 			string roleName = "AppUser";
+              int roleId = 2;
 
-			var role = _unitOfWork.Roles.Get(x => x.RoleName == roleName);
+            var role = _unitOfWork.Roles.Get(x => x.RoleName == roleName);
 
 			if (role is null)
 			{
 				response.Message = $"Role does not exist";
 				return response;
 			}
+            if (isStudent)
+            {
+				 roleId = 3;
+            } 
+			if (isTeacher)
+            {
+				 roleId = 4;
+            }
 
-			var user = new User
+            var user = new User
 			{
 				UserName = request.UserName,
 				Email = request.Email,
 				Password = request.Password,
-				RoleId = 2,
+				RoleId = roleId,
 				RoleName= roleName,
 				CreatedBy = createdBy,
 			};
+			
 
 			try
 			{

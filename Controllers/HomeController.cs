@@ -116,7 +116,7 @@ namespace Fochso.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 // Redirect to the home page.
-                RedirectToAction("Index","Student");
+                RedirectToAction("Index","Home");
             }
 
 

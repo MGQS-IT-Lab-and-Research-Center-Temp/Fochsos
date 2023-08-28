@@ -28,8 +28,8 @@ namespace Fochso.Repository.Implementations
 		public List<Class> GetClasses()
 		{
 			var classes = _context.Classes
-						.Include(s => s.Name)
-						.Include(s => s.Id)
+						//.Include(s => s.Name)
+						//.Include(s => s.Id)
 						.Include(s => s.Students)
 						.ToList();
 
@@ -40,9 +40,9 @@ namespace Fochso.Repository.Implementations
 		{
 			var classes = _context.Classes
 						  .Where(expression)
-						  .Include(s => s.Name)
+						  //.Include(s => s.Name)
 						  .Include(s => s.Students)
-						  .Include(s => s.Id)
+						  //.Include(s => s.Id)
 						  .ToList();
 
 			return classes;
