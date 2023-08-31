@@ -8,5 +8,6 @@ namespace Fochso.Repository.Interfaces
         List<Class> GetClasses();
         List<Class> GetClasses(Expression<Func<Class, bool>> expression);
         Class GetClass(Expression<Func<Class, bool>> expression);
+        Class GetClassByName(string className);
     }
 }

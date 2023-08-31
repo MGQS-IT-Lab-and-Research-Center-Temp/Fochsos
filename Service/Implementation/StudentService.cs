@@ -27,12 +27,18 @@ namespace Fochso.Service.Implementation
             var response = new BaseResponseModel();
             var createdBy = _httpContextAccessor.HttpContext.User.Identity.Name;
             var isStudentExist = _unitOfWork.Students.Exists(s => s.Name == createStudent.Name);
-            var classes = _unitOfWork.Classes.Get(createStudent.ClassId);
+            var classes = _unitOfWork.Classes.GetClassByName(createStudent.Class);
             if (isStudentExist)
             {
                 response.Message = "Student already exist!";
                 return response;
             }
+            if (classes == null)
+            {
+                response.Message = "Class not found!";
+                return response;
+            }
+
             if (createStudent == null)
             {
                 response.Message = "Student field is required";
@@ -44,8 +50,8 @@ namespace Fochso.Service.Implementation
             {
                 Name = createStudent.Name,
                 Class = createStudent.Class,
-                ClassId = createStudent.ClassId,
-                ClassClass = classes,
+                ClassId = classes.Id,
+               
                 CreatedBy = createdBy
             };
 

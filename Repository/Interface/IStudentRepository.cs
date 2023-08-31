@@ -9,6 +9,7 @@ namespace Fochso.Repository.Interfaces
         List<Student> GetStudents(Expression<Func<Student, bool>> expression);
         Student GetStudent(Expression<Func<Student, bool>> expression);
         List<Student> GetStudentsByClassId(int id);
+        Student GetStudentByName(string studentName);
 
     }
 }

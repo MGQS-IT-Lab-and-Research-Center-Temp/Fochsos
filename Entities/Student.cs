@@ -6,5 +6,7 @@
         public string Class { get; set;}
         public int ClassId { get; set;}
         public Class ClassClass { get; set;}
+        public ICollection<Result> Results { get; set; } = new HashSet<Result>();
+
     }
 }

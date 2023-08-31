@@ -1,0 +1,51 @@
+﻿@model Fochso.Models.Result.CreateResultViewModel
+@{
+    ViewData["Title"] = "Create New Result";
+}
+
+<div class="body">
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-action="Create">
+                <div class="col-md-12 mb-2">
+                    <label for="English" class="form-label">English:</label>
+                    <input type="number" class="form-control" placeholder="Enter Student Score" name="English">
+                </div>
+
+                  <div class="col-md-12 mb-2">
+                    <label for="Mathematics" class="form-label">Mathematics:</label>
+                    <input type="number" class="form-control" placeholder="Enter Student Score" name="English">
+                </div>
+                <div class="col-md-12 mb-2">
+                    <label for="Civic" class="form-label">Civic:</label>
+                    <input type="number" class="form-control" placeholder="Enter Student Score" name="Civic">
+                </div>   
+                <div class="col-md-12 mb-2">
+                    <label for="Physics" class="form-label">Physics:</label>
+                    <input type="number" class="form-control" placeholder="Enter Student Score" name="Physics">
+                </div>    
+                <div class="col-md-12 mb-2">
+                    <label for="Chemistry" class="form-label">Chemistry:</label>
+                    <input type="number" class="form-control" placeholder="Enter Student Score" name="Chemistry">
+                </div>  
+                <div class="col-md-12 mb-2">
+                    <label for="Biology" class="form-label">Biology:</label>
+                    <input type="number" class="form-control" placeholder="Enter Student Score" name="Biology">
+                </div>
+                <div class="col-md-12 mb-2">
+                    <label for="Name" class="form-label">Student Name:</label>
+                    <input type="text" class="form-control" placeholder="Enter Student Name" name="Name">
+                </div>
+
+
+            
+            
+
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-primary">Add Result</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

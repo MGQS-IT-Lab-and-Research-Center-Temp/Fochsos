@@ -48,5 +48,10 @@ namespace Fochso.Repository.Implementations
 			return classes;
 		}
 
-	}
+        public Class GetClassByName(string className)
+        {
+            return _context.Classes.FirstOrDefault(c => c.Name == className);
+        }
+
+    }
 }

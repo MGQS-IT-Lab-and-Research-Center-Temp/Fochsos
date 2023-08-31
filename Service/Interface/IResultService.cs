@@ -9,9 +9,11 @@ namespace Fochso.Service.Interface
     {
 
         BaseResponseModel CreateResult(CreateResultViewModel createResult);
-        BaseResponseModel DeleteResult(int studentId);
-        BaseResponseModel UpdateResult(int studentId, UpdateResultViewModel updateResult);
+        BaseResponseModel DeleteResult(int resultId);
+        BaseResponseModel UpdateResult(int resultId, UpdateResultViewModel updateResult);
         ResultsResponseModel GetAllResult();
         IEnumerable<Result> GetResultsByStudentId(int studentId);
+        ResultResponseModel GetResult(int resultId);
+
     }
 }

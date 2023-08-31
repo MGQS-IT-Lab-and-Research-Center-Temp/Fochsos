@@ -21,6 +21,7 @@
         public int Accounting { get; set; }
         public int Yoruba { get; set; }
         public string StudentName { get; set; }
+        public int Term { get; set; }
         public Fochso.Entities.Student Student { get; set; }
 
     }

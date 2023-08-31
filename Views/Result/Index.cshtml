@@ -1,0 +1,40 @@
+﻿@model List<Fochso.Models.Result.ResultViewModel>
+@{
+    ViewData["Title"] = "Result List";
+    int count = 1;
+}
+
+<div>
+    <a asp-controller="Result" asp-action="Create">Add New Result</a>
+</div>
+
+@if (Model is not null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">S/N</th>
+                <th scope="col">StudentName
+                <th>
+                <th scope="col">Term</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td scope="row">@count</td>
+                    <td scope="row">@item.Student.Name</td>
+                    <td scope="row">@item.Term</td>
+                    <td scope="row">
+                        <div>
+                            <a asp-controller="Result" asp-action="Details">Result Details</a>
+                        </div>
+                    </td>
+                </tr>
+                count++;
+            }
+        </tbody>
+    </table>
+}

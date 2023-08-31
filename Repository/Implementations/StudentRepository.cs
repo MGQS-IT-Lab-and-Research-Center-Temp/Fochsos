@@ -64,5 +64,9 @@ namespace Fochso.Repository.Implementations
 			return studentclass;
 		}
 
-	}
+        public Student GetStudentByName(string studentName)
+        {
+            return _context.Students.FirstOrDefault(c => c.Name == studentName);
+        }
+    }
 }

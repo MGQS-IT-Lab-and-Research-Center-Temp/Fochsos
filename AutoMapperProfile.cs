@@ -13,9 +13,11 @@ using Fochso.Models.News;
     {
         public AutoMapperProfile()
         {
+        // Result mapping
             CreateMap<Result,CreateResultViewModel>().ReverseMap(); // Example mapping
-            CreateMap<CreateResultViewModel, Result>().ReverseMap(); // Example mapping
-            CreateMap<Class, ClassViewModel>().ReverseMap();    // Define other mappings here
+            CreateMap<Result, ResultViewModel>().ReverseMap(); // Example mapping
+            CreateMap<Result, UpdateResultViewModel>().ReverseMap();    // Define other mappings here
+
             CreateMap<News,NewsViewModel>().ReverseMap();    // Define other mappings here
             CreateMap<Role, RoleViewModel>().ReverseMap();    // Define other mappings here
             CreateMap<Student, StudentViewModel>().ReverseMap();    // Define other mappings here

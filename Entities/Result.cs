@@ -20,6 +20,10 @@
         public int Commerce { get; set; }
         public int Accounting { get; set; }
         public int Yoruba { get; set; }
+        public int StudentId { get; set; }
+        public int Term { get; set; }
+        public string Name { get; set; }
+        public string Class { get; set; }
         public Student Student { get; set; }
     
     }
