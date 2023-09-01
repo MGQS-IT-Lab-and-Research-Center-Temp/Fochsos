@@ -47,9 +47,9 @@ namespace Fochso.Controllers
 
         // POST: NewsController/Create
         [HttpPost]
-        public ActionResult Create(CreateNewsViewModel createNews)
+        public ActionResult Create(CreateNewsViewModel createNews, IFormFile imagePath)
         {
-            var response = _newsService.CreateNews(createNews);
+            var response = _newsService.CreateNews(createNews, imagePath);
             if (response.Status is false)
             {
                 return View(createNews);

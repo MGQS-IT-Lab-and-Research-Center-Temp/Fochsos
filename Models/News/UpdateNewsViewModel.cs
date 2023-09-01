@@ -8,5 +8,7 @@ namespace Fochso.Models.News
         [Required(ErrorMessage = "News's Id name is required")]
         public string Title { get; set; }
         public string Description { get; set; }
+        public string ImagePath { get; set; }
+
     }
 }

@@ -13,13 +13,17 @@ namespace Fochso.Service.Implementation
 
         private readonly IUnitOfWork _unitOfWork;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public NewsService(IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor)
+        private readonly string _uploadFolderPath;
+
+        public NewsService(IHttpContextAccessor httpContextAccessor, IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
         {
-            _unitOfWork = unitOfWork;
             _httpContextAccessor = httpContextAccessor;
+            _unitOfWork = unitOfWork;
+            _webHostEnvironment = webHostEnvironment;
         }
-        public BaseResponseModel CreateNews(CreateNewsViewModel createNews)
+        public BaseResponseModel CreateNews(CreateNewsViewModel createNews,IFormFile ImagePath)
         {
             var response = new BaseResponseModel();
             var createdBy = _httpContextAccessor.HttpContext.User.Identity.Name;
@@ -34,14 +38,40 @@ namespace Fochso.Service.Implementation
                 response.Message = "News field is required";
                 return response;
             }
-
-
+            string folder = "cars/cover/";
+            createNews.ImagePath = UploadImage(folder, createNews.Photo);
+            //var originalFiePath = Path.GetFileName(ImagePath.FileName);
+            //var uniqueFileName = Path.GetRandomFileName();
+            ////var uniqueFilePath = Path.Combine(@"C:\temp\", uniqueFileName);
+            //using (var stream = System.IO.File.Create(uniqueFilePath))
+            //{
+            //     ImagePath.CopyTo(stream);
+            //}
             var news = new News
-            {
-                Title = createNews.Title,
-                Description = createNews.Description,
-                CreatedBy = createdBy
-            };
+                {
+                    Title = createNews.Title,
+                    Description = createNews.Description,
+                    //ImagePath = ImagePath.ToString(),
+                ImagePath = createNews.ImagePath,
+                CreatedBy = createdBy,
+                };
+                //if (ImagePath != null && ImagePath.Length > 0)
+                //{
+                //    // Generate a unique file name for the image
+                //    string uniqueFileName = Guid.NewGuid().ToString() + "_" + ImagePath.FileName;
+               
+                //    // Determine the file path where you want to save the image
+                //    string filePathway = Path.Combine(_uploadFolderPath, uniqueFileName);
+
+                //    // Save the image to the specified file path
+                //    using (var fileStream = new FileStream(filePathway, FileMode.Create))
+                //    {
+                //    ImagePath.CopyTo(fileStream);
+                //    }
+
+                //    // Set the image path in the news entity
+                //    news.ImagePath = ImagePath;
+                //}
 
             try
             {
@@ -143,7 +173,8 @@ namespace Fochso.Service.Implementation
             {
                 Id = newsId,
                 Title = news.Title,
-                Description = news.Description
+                Description = news.Description,
+               ImagePath = news.ImagePath,
             };
             return response;
     }
@@ -176,6 +207,19 @@ namespace Fochso.Service.Implementation
                 response.Message = ex.Message;
                 return response;
             }
+        }
+
+
+        private string UploadImage(string folderPath, IFormFile photo)
+        {
+
+            folderPath += Guid.NewGuid().ToString() + "_" + photo.FileName;
+
+            string serverFolder = Path.Combine(_webHostEnvironment.WebRootPath, folderPath);
+
+            photo.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
+
+            return "/" + folderPath;
         }
     }
 }

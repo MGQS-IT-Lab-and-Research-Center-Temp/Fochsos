@@ -65,6 +65,9 @@ namespace Fochso.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
 
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("longtext");
+
                     b.Property<DateTime>("LastModified")
                         .HasColumnType("datetime(6)");
 
@@ -77,6 +80,97 @@ namespace Fochso.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Newses");
+                });
+
+            modelBuilder.Entity("Fochso.Entities.Result", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("Accounting")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Agric")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Biology")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Chemistry")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Civic")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Class")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("Commerce")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("DataProcessing")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("English")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FurtherMathematics")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Geography")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Government")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ICT")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IRS")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("LastModified")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("Literature")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Mathematics")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("Physics")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TD")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Term")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Yoruba")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("Results");
                 });
 
             modelBuilder.Entity("Fochso.Entities.Role", b =>
@@ -228,6 +322,17 @@ namespace Fochso.Migrations
                     b.ToTable("Users", (string)null);
                 });
 
+            modelBuilder.Entity("Fochso.Entities.Result", b =>
+                {
+                    b.HasOne("Fochso.Entities.Student", "Student")
+                        .WithMany("Results")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Student");
+                });
+
             modelBuilder.Entity("Fochso.Entities.Student", b =>
                 {
                     b.HasOne("Fochso.Entities.Class", "ClassClass")
@@ -258,6 +363,11 @@ namespace Fochso.Migrations
             modelBuilder.Entity("Fochso.Entities.Role", b =>
                 {
                     b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("Fochso.Entities.Student", b =>
+                {
+                    b.Navigation("Results");
                 });
 #pragma warning restore 612, 618
         }
